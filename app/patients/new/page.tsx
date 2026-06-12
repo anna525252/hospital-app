@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Doctor } from "@/types";
 
 const input =
@@ -198,9 +199,11 @@ export default function NewPatientPage() {
                   ))}
                 </select>
 
-                <img
+                <Image
                   src="/images/arrow.svg"
                   alt=""
+                  width={16}
+                  height={16}
                   className="invert pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50"
                 />
               </div>

@@ -20,12 +20,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={`${montserrat.className} min-h-screen bg-[#24353C]`}>
+      <body
+        className={`${montserrat.className} min-h-screen flex flex-col bg-[#24353C] overflow-x-hidden`}
+      >
         <Header />
-        <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+
+        <main className="relative flex-1 w-full mx-auto px-4 sm:px-6 py-4 sm:py-6 flex">
           <div className="absolute top-16 left-8 w-2 h-2 rounded-full bg-cyan-500 opacity-40 hidden sm:block" />
           <div className="absolute top-10 left-14 w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-30 hidden sm:block" />
           <div className="absolute bottom-20 left-12 w-2 h-2 rounded-full bg-emerald-400 opacity-25 hidden sm:block" />
+
           {children}
         </main>
       </body>

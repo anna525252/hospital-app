@@ -8,8 +8,8 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="flex items-center justify-center px-4 sm:px-8 md:px-16 mt-6 sm:mt-10">
-      <div className="sticky bg-white/90 top-0 z-50 flex w-full max-w-6xl min-h-15 items-center justify-between rounded-[30px] px-5 sm:px-7 py-3">
+    <nav className="sticky top-5 z-50 w-full px-4 sm:px-8 md:px-16 mt-6 sm:mt-10">
+      <div className="mx-auto flex w-full max-w-6xl min-h-15 items-center justify-between rounded-[30px] px-5 sm:px-7 py-3 bg-white/90 backdrop-blur">
         <Link href="/">
           <div className="flex items-center gap-2">
             <Image src="/images/logo.svg" width={32} height={32} alt="logo" />
@@ -29,13 +29,19 @@ export default function Header() {
           aria-label="Меню"
         >
           <span
-            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${
+              menuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
           />
           <span
-            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${
+              menuOpen ? "opacity-0" : ""
+            }`}
           />
           <span
-            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            className={`block w-6 h-0.5 bg-black transition-all duration-300 ${
+              menuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
           />
         </button>
       </div>

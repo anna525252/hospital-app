@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center px-4 sm:px-8 md:px-16 py-10">
+    <div className="flex-1 w-full flex items-center justify-center px-4 sm:px-8 md:px-16 py-10">
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-10 md:gap-0">
         <div className="flex flex-col flex-1 max-w-lg items-center text-center">
           <p className="text-cyan-400 text-sm font-medium tracking-[0.25em] uppercase mb-6">
@@ -52,7 +52,6 @@ export default function Home() {
               alt="Медицинский персонал"
               fill
               sizes="(max-width: 640px) 196px, (max-width: 768px) 252px, 300px"
-              quality={100}
               className="object-cover"
             />
           </div>

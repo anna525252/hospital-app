@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { Doctor, Patient } from "@/types";
 import Image from "next/image";
+import { Doctor, Patient } from "@/types";
 
 const LIMIT = 6;
 
@@ -103,12 +103,12 @@ export default function PatientsPage() {
                   : "Все врачи"}
               </span>
 
-              <img
+              <Image
                 src="/images/arrow.svg"
                 alt=""
-                className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition ${
-                  isDoctorOpen ? "rotate-180" : ""
-                }`}
+                width={16}
+                height={16}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition ${isDoctorOpen ? "rotate-180" : ""}`}
               />
             </button>
 
