@@ -65,33 +65,35 @@ export default function DoctorPage() {
         ← Назад к врачам
       </Link>
 
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 mb-4">
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-14 h-14 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 flex-shrink-0">
-            <Image
-              src={
-                doctor.gender === "male"
-                  ? "/images/doctors/male.svg"
-                  : "/images/doctors/female.svg"
-              }
-              alt="doctor"
-              width={200}
-              height={200}
-              className="w-full h-full object-cover"
-            />
+      <div className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-6 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="w-14 h-14 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 flex-shrink-0">
+              <Image
+                src={
+                  doctor.gender === "male"
+                    ? "/images/doctors/male.svg"
+                    : "/images/doctors/female.svg"
+                }
+                alt="doctor"
+                width={200}
+                height={200}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight break-words">
+                {doctor.fullName}
+              </h1>
+
+              <p className="text-sm text-slate-400 mt-0.5 break-words">
+                {doctor.specialization}
+              </p>
+            </div>
           </div>
 
-          <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold text-slate-900 leading-tight break-words">
-              {doctor.fullName}
-            </h1>
-
-            <p className="text-sm text-slate-400 mt-0.5">
-              {doctor.specialization}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-1.5 flex-shrink-0">
+          <div className="flex items-center gap-1.5 flex-shrink-0 sm:ml-auto">
             <div
               className={`w-2 h-2 rounded-full ${
                 doctor.isAvailable ? "bg-emerald-400" : "bg-red-400"
@@ -111,7 +113,7 @@ export default function DoctorPage() {
         <div className="w-full h-px bg-slate-100 mb-5" />
 
         <div className="mb-5">
-          <div className="flex">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-0">
             <div className="flex-1">
               <p className="text-xs text-slate-400 mb-0.5">Стаж</p>
 
@@ -120,9 +122,9 @@ export default function DoctorPage() {
               </p>
             </div>
 
-            <div className="w-px bg-slate-100" />
+            <div className="hidden sm:block w-px bg-slate-100" />
 
-            <div className="flex-1 pl-4">
+            <div className="flex-1 sm:pl-4">
               <p className="text-xs text-slate-400 mb-0.5">Email</p>
 
               <p className="font-semibold text-slate-800 break-all">
@@ -160,12 +162,12 @@ export default function DoctorPage() {
                       </span>
                     </div>
 
-                    <div className="min-w-0">
-                      <p className="font-semibold text-slate-800 text-sm">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-slate-800 text-sm break-words">
                         {patient.fullName}
                       </p>
 
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-400 break-words">
                         {patient.diagnosis}
                       </p>
                     </div>
@@ -181,17 +183,17 @@ export default function DoctorPage() {
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href={`/doctors/${id}/edit`}
-          className="flex-1 rounded-full h-11 flex items-center justify-center text-white font-semibold text-sm hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
+          className="flex-1 rounded-full h-16 sm:h-11 flex items-center justify-center text-white font-semibold text-base sm:text-sm hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
         >
           Редактировать
         </Link>
 
         <button
           onClick={deleteDoctor}
-          className="flex-1 rounded-full h-11 border border-red-200 text-red-500 font-semibold text-sm hover:bg-red-50 hover:border-red-300 active:scale-95 transition-all duration-200"
+          className="flex-1 rounded-full h-16 sm:h-11 border border-red-200 text-red-500 font-semibold text-base sm:text-sm hover:bg-red-50 hover:border-red-300 active:scale-95 transition-all duration-200"
         >
           Удалить
         </button>

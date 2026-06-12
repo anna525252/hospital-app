@@ -20,32 +20,34 @@ export default function DoctorsPage() {
   }, [currentPage]);
 
   return (
-    <div className="min-h-screen py-10 px-6 relative">
-      <div className="flex items-center justify-between mb-10">
+    <div className="min-h-screen py-6 sm:py-10 px-0 relative">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
         <div>
           <p className="text-cyan-400 text-xs font-medium tracking-[0.25em] uppercase mb-2">
             Медицинский персонал
           </p>
 
-          <h1 className="text-white font-bold text-3xl leading-tight">Врачи</h1>
+          <h1 className="text-white font-bold text-2xl sm:text-3xl leading-tight">
+            Врачи
+          </h1>
 
-          <div className="w-84 h-[2px] mt-3 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
+          <div className="w-48 sm:w-84 h-[2px] mt-3 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
         </div>
 
         <Link
           href="/doctors/new"
-          className="inline-flex items-center gap-2 rounded-full h-11 px-7 font-bold text-white text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
+          className="inline-flex items-center justify-center gap-2 rounded-full h-11 px-7 font-bold text-white text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 bg-[linear-gradient(135deg,#0B82C6,#00A482)] w-full sm:w-auto"
         >
           <span className="text-base leading-none">+</span>
           Добавить врача
         </Link>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {doctors.map((doctor: Doctor) => (
           <div
             key={doctor.id}
-            className="group relative rounded-2xl p-5 bg-white transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10"
+            className="group relative rounded-2xl p-4 sm:p-5 bg-white transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-11 h-11 rounded-xl flex-shrink-0 overflow-hidden border border-gray-100">
@@ -111,11 +113,11 @@ export default function DoctorsPage() {
       </div>
 
       {doctors.length > 0 && (
-        <div className="flex justify-center items-center gap-4 mt-12">
+        <div className="flex justify-center items-center gap-3 sm:gap-4 mt-10 sm:mt-12">
           <button
             onClick={() => setCurrentPage((prev) => prev - 1)}
             disabled={currentPage === 1}
-            className="px-5 py-2 text-sm font-semibold rounded-full text-white border border-white/20 bg-white/10 hover:bg-white/15 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+            className="px-4 sm:px-5 py-2 text-sm font-semibold rounded-full text-white border border-white/20 bg-white/10 hover:bg-white/15 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
           >
             ← Назад
           </button>
@@ -131,7 +133,7 @@ export default function DoctorsPage() {
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={currentPage === totalPages}
-            className="px-5 py-2 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-cyan-500/20 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
+            className="px-4 sm:px-5 py-2 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-cyan-500/20 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
           >
             Далее →
           </button>

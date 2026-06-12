@@ -65,21 +65,21 @@ export default function PatientsPage() {
   const hasFilters = search || doctorFilter;
 
   return (
-    <div className="min-h-screen py-10 px-6 relative">
-      <div className="flex items-center justify-between mb-10 gap-4">
+    <div className="min-h-screen py-6 sm:py-10 px-4 sm:px-6 relative">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-10 gap-5">
         <div>
           <p className="text-cyan-400 text-xs font-medium tracking-[0.25em] uppercase mb-2">
             Картотека
           </p>
 
-          <h1 className="text-white font-bold text-3xl leading-tight">
+          <h1 className="text-white font-bold text-2xl sm:text-3xl leading-tight">
             Пациенты
           </h1>
 
-          <div className="w-84 h-0.5 mt-3 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
+          <div className="w-full max-w-84 h-0.5 mt-3 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 w-full lg:w-auto">
           <input
             type="text"
             placeholder="Поиск по имени..."
@@ -88,14 +88,14 @@ export default function PatientsPage() {
               setSearch(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-white/10 border border-white/15 rounded-full px-5 py-2.5 text-sm text-white w-52 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition placeholder:text-white/40"
+            className="bg-white/10 border border-white/15 rounded-full px-5 py-3 text-sm text-white w-full sm:w-52 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition placeholder:text-white/40"
           />
 
-          <div ref={dropdownRef} className="relative">
+          <div ref={dropdownRef} className="relative w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setIsDoctorOpen((v) => !v)}
-              className="appearance-none bg-white/10 border border-white/15 rounded-full pl-5 pr-10 py-2.5 text-sm text-white w-[210px] text-left hover:bg-white/15 transition relative"
+              className="appearance-none bg-white/10 border border-white/15 rounded-full pl-5 pr-10 py-3 text-sm text-white w-full sm:w-[210px] text-left hover:bg-white/15 transition relative"
             >
               <span className="truncate block">
                 {doctorFilter
@@ -106,12 +106,16 @@ export default function PatientsPage() {
               <img
                 src="/images/arrow.svg"
                 alt=""
-                className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition ${isDoctorOpen ? "rotate-180" : ""}`}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition ${
+                  isDoctorOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
             <div
-              className={`absolute top-[52px] left-0 w-full rounded-2xl overflow-hidden bg-[#121826] border border-white/10 z-50 transition ${isDoctorOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+              className={`absolute top-[56px] left-0 w-full rounded-2xl overflow-hidden bg-[#121826] border border-white/10 z-50 transition ${
+                isDoctorOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
             >
               <button
                 onClick={() => {
@@ -147,7 +151,7 @@ export default function PatientsPage() {
                 setDoctorFilter("");
                 setCurrentPage(1);
               }}
-              className="border border-white/15 rounded-full px-4 py-2.5 text-sm text-white/50 hover:text-red-400 hover:border-red-400/40 transition bg-white/10"
+              className="border border-white/15 rounded-full px-4 py-3 text-sm text-white/50 hover:text-red-400 hover:border-red-400/40 transition bg-white/10"
             >
               ✕
             </button>
@@ -155,14 +159,18 @@ export default function PatientsPage() {
 
           <Link
             href="/patients/new"
-            className={`inline-flex items-center justify-center rounded-full h-11 font-bold text-white text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 whitespace-nowrap overflow-hidden transition-[width] duration-700 ease-in-out bg-[linear-gradient(135deg,#0B82C6,#00A482)] ${
-              hasFilters ? "w-[44px]" : "w-[220px]"
+            className={`inline-flex items-center justify-center rounded-full h-14 sm:h-11 font-bold text-white text-sm hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 whitespace-nowrap overflow-hidden transition-[width] duration-700 ease-in-out bg-[linear-gradient(135deg,#0B82C6,#00A482)] ${
+              hasFilters ? "w-full sm:w-[44px]" : "w-full sm:w-[220px]"
             }`}
           >
             <span className="text-base leading-none shrink-0">+</span>
 
             <span
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${hasFilters ? "max-w-0 opacity-0 ml-0" : "max-w-[180px] opacity-100 ml-2"}`}
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                hasFilters
+                  ? "max-w-0 opacity-0 ml-0"
+                  : "max-w-[180px] opacity-100 ml-2"
+              }`}
             >
               Добавить пациента
             </span>
@@ -176,7 +184,7 @@ export default function PatientsPage() {
           <p className="text-sm">Пациенты не найдены</p>
         </div>
       ) : (
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {data.map((patient) => (
             <div
               key={patient.id}
@@ -241,16 +249,16 @@ export default function PatientsPage() {
       )}
 
       {data.length > 0 && (
-        <div className="flex justify-center items-center gap-4 mt-12">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-12">
           <button
             onClick={() => setCurrentPage((prev) => prev - 1)}
             disabled={currentPage === 1}
-            className="px-5 py-2 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 border border-white/20 bg-white/10"
+            className="w-full sm:w-auto px-5 py-3 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 border border-white/20 bg-white/10"
           >
             ← Назад
           </button>
 
-          <span className="text-sm text-slate-400">
+          <span className="text-sm text-slate-400 text-center">
             Страница{" "}
             <span className="font-bold bg-[linear-gradient(90deg,#0B82C6,#00A482)] bg-clip-text text-transparent">
               {currentPage}
@@ -261,7 +269,7 @@ export default function PatientsPage() {
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={currentPage === totalPages}
-            className="px-5 py-2 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-cyan-500/20 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
+            className="w-full sm:w-auto px-5 py-3 text-sm font-semibold rounded-full text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-cyan-500/20 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
           >
             Далее →
           </button>

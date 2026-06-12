@@ -6,6 +6,9 @@ import Link from "next/link";
 import type { FormEvent } from "react";
 import { Doctor } from "@/types";
 
+const input =
+  "w-full rounded-2xl border border-slate-200 px-5 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300 transition";
+
 export default function EditPatientPage() {
   const params = useParams();
   const id = String(params.id);
@@ -23,15 +26,12 @@ export default function EditPatientPage() {
 
   useEffect(() => {
     async function loadData() {
-      const [patientRes, doctorsRes] =
-        await Promise.all([
-          fetch(`/api/patients/${id}`),
-          fetch("/api/doctors?limit=100"),
-        ]);
+      const [patientRes, doctorsRes] = await Promise.all([
+        fetch(`/api/patients/${id}`),
+        fetch("/api/doctors?limit=100"),
+      ]);
 
-      const doctorsData =
-        await doctorsRes.json();
-
+      const doctorsData = await doctorsRes.json();
       setDoctors(doctorsData.items);
 
       if (!patientRes.ok) {
@@ -39,8 +39,7 @@ export default function EditPatientPage() {
         return;
       }
 
-      const patient =
-        await patientRes.json();
+      const patient = await patientRes.json();
 
       setFullName(patient.fullName);
       setAge(String(patient.age));
@@ -53,9 +52,7 @@ export default function EditPatientPage() {
     loadData();
   }, [id]);
 
-  async function handleSubmit(
-    e: FormEvent
-  ) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     setLoading(true);
@@ -64,88 +61,60 @@ export default function EditPatientPage() {
     const ageNumber = Number(age);
 
     if (fullName.trim().length < 3) {
-      setError(
-        "Полное имя должно содержать минимум 3 символа"
-      );
+      setError("Полное имя должно содержать минимум 3 символа");
       setLoading(false);
       return;
     }
 
     if (fullName.trim().length > 100) {
-      setError(
-        "Полное имя не должно превышать 100 символов"
-      );
+      setError("Полное имя не должно превышать 100 символов");
       setLoading(false);
       return;
     }
 
-    if (
-      ageNumber < 1 ||
-      ageNumber > 120
-    ) {
-      setError(
-        "Возраст должен быть от 1 до 120 лет"
-      );
+    if (ageNumber < 1 || ageNumber > 120) {
+      setError("Возраст должен быть от 1 до 120 лет");
       setLoading(false);
       return;
     }
 
-    if (
-      diagnosis.trim().length < 3
-    ) {
-      setError(
-        "Диагноз должен содержать минимум 3 символа"
-      );
+    if (diagnosis.trim().length < 3) {
+      setError("Диагноз должен содержать минимум 3 символа");
       setLoading(false);
       return;
     }
 
-    if (
-      diagnosis.trim().length > 200
-    ) {
-      setError(
-        "Диагноз не должен превышать 200 символов"
-      );
+    if (diagnosis.trim().length > 200) {
+      setError("Диагноз не должен превышать 200 символов");
       setLoading(false);
       return;
     }
 
     if (notes.length > 500) {
-      setError(
-        "Заметки не должны превышать 500 символов"
-      );
+      setError("Заметки не должны превышать 500 символов");
       setLoading(false);
       return;
     }
 
-    const res = await fetch(
-      `/api/patients/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          fullName,
-          age: Number(age),
-          diagnosis,
-          doctorId,
-          isCritical,
-          notes,
-        }),
-      }
-    );
+    const res = await fetch(`/api/patients/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName,
+        age: Number(age),
+        diagnosis,
+        doctorId,
+        isCritical,
+        notes,
+      }),
+    });
 
     if (!res.ok) {
-      const data =
-        await res.json();
+      const data = await res.json();
 
-      setError(
-        data.error ||
-        "Что-то пошло не так"
-      );
-
+      setError(data.error || "Что-то пошло не так");
       setLoading(false);
       return;
     }
@@ -154,217 +123,170 @@ export default function EditPatientPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto py-10 px-4">
-      <Link
-        href={`/patients/${id}`}
-        className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition mb-8"
-      >
-        ← Назад к пациенту
-      </Link>
-
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4">
-          Редактирование пациента
-        </h1>
-
-        <div
-          className="w-full h-0.5 rounded-full"
-          style={{
-            background:
-              "linear-gradient(90deg,#0B82C6,#00A482)",
-          }}
-        />
-      </div>
-
-      <div className="bg-white rounded-3xl border border-slate-200 p-7">
-        {error && (
-          <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-            {error}
-          </div>
-        )}
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
+    <div className="min-h-screen w-full px-4 sm:px-6 py-6 sm:py-10">
+      <div className="max-w-xl mx-auto">
+        <Link
+          href={`/patients/${id}`}
+          className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition mb-6 sm:mb-8"
         >
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Полное имя *
-            </label>
+          ← Назад к пациенту
+        </Link>
 
-            <input
-              type="text"
-              required
-              minLength={3}
-              maxLength={100}
-              value={fullName}
-              onChange={(e) =>
-                setFullName(
-                  e.target.value
-                )
-              }
-              placeholder="Иванов Иван"
-              className={input}
-            />
-          </div>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">
+            Редактирование пациента
+          </h1>
 
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Возраст *
-            </label>
+          <div
+            className="w-full h-0.5 rounded-full"
+            style={{
+              background: "linear-gradient(90deg,#0B82C6,#00A482)",
+            }}
+          />
+        </div>
 
-            <input
-              type="number"
-              required
-              min={1}
-              max={120}
-              value={age}
-              onChange={(e) =>
-                setAge(
-                  e.target.value
-                )
-              }
-              placeholder="0"
-              className={input}
-            />
-          </div>
+        <div className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-7">
+          {error && (
+            <div className="mb-5 sm:mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {error}
+            </div>
+          )}
 
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Диагноз *
-            </label>
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Полное имя *
+              </label>
 
-            <input
-              type="text"
-              required
-              minLength={3}
-              maxLength={200}
-              value={diagnosis}
-              onChange={(e) =>
-                setDiagnosis(
-                  e.target.value
-                )
-              }
-              placeholder="Введите диагноз"
-              className={input}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Врач *
-            </label>
-
-            <div className="relative">
-              <select
+              <input
+                type="text"
                 required
-                value={doctorId}
-                onChange={(e) =>
-                  setDoctorId(
-                    e.target.value
-                  )
-                }
-                className={`${input} appearance-none pr-12 bg-white`}
-              >
-                <option value="">
-                  Выбрать врача
-                </option>
-
-                {doctors.map(
-                  (doctor) => (
-                    <option
-                      key={
-                        doctor.id
-                      }
-                      value={
-                        doctor.id
-                      }
-                    >
-                      {
-                        doctor.fullName
-                      }
-                    </option>
-                  )
-                )}
-              </select>
-
-              <img
-                src="/images/arrow.svg"
-                alt=""
-                className="invert pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50"
+                minLength={3}
+                maxLength={100}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Иванов Иван"
+                className={input}
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Заметки
-            </label>
-
-            <textarea
-              rows={2}
-              maxLength={500}
-              value={notes}
-              onChange={(e) =>
-                setNotes(
-                  e.target.value
-                )
-              }
-              placeholder="Дополнительная информация"
-              className={`${input} resize-none`}
-            />
-          </div>
-
-          <div className="flex items-center justify-between rounded-2xl border border-slate-200 p-4">
             <div>
-              <p className="font-semibold text-slate-800">
-                Критическое состояние
-              </p>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Возраст *
+              </label>
 
-              <p className="text-sm text-slate-500 mt-1">
-                Пациент требует повышенного внимания
-              </p>
+              <input
+                type="number"
+                required
+                min={1}
+                max={120}
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="0"
+                className={input}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Диагноз *
+              </label>
+
+              <input
+                type="text"
+                required
+                minLength={3}
+                maxLength={200}
+                value={diagnosis}
+                onChange={(e) => setDiagnosis(e.target.value)}
+                placeholder="Введите диагноз"
+                className={input}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Врач *
+              </label>
+
+              <div className="relative">
+                <select
+                  required
+                  value={doctorId}
+                  onChange={(e) => setDoctorId(e.target.value)}
+                  className={`${input} appearance-none pr-12 bg-white`}
+                >
+                  <option value="">Выбрать врача</option>
+
+                  {doctors.map((doctor) => (
+                    <option key={doctor.id} value={doctor.id}>
+                      {doctor.fullName}
+                    </option>
+                  ))}
+                </select>
+
+                <img
+                  src="/images/arrow.svg"
+                  alt=""
+                  className="invert pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Заметки
+              </label>
+
+              <textarea
+                rows={2}
+                maxLength={500}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Дополнительная информация"
+                className={`${input} resize-none`}
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-slate-200 p-4">
+              <div>
+                <p className="font-semibold text-slate-800">
+                  Критическое состояние
+                </p>
+
+                <p className="text-sm text-slate-500 mt-1">
+                  Пациент требует повышенного внимания
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsCritical(!isCritical)}
+                className={`relative w-14 h-8 rounded-full transition-all ${
+                  isCritical ? "bg-red-500" : "bg-slate-300"
+                }`}
+              >
+                <div
+                  className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform ${
+                    isCritical ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
             </div>
 
             <button
-              type="button"
-              onClick={() =>
-                setIsCritical(
-                  !isCritical
-                )
-              }
-              className={`relative w-14 h-8 rounded-full transition-all ${isCritical
-                ? "bg-red-500"
-                : "bg-slate-300"
-                }`}
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-full h-12 text-white font-semibold hover:scale-[1.01] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 disabled:opacity-50"
+              style={{
+                background: "linear-gradient(135deg,#0B82C6,#00A482)",
+              }}
             >
-              <div
-                className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform ${isCritical
-                  ? "translate-x-7"
-                  : "translate-x-1"
-                  }`}
-              />
+              {loading ? "Сохранение..." : "Сохранить изменения"}
             </button>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-full h-12 text-white font-semibold hover:scale-[1.01] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 disabled:opacity-50"
-            style={{
-              background:
-                "linear-gradient(135deg,#0B82C6,#00A482)",
-            }}
-          >
-            {loading
-              ? "Сохранение..."
-              : "Сохранить изменения"}
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
 }
-
-const input =
-  "w-full rounded-2xl border border-slate-200 px-5 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300 transition";

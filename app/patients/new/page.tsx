@@ -25,7 +25,6 @@ export default function NewPatientPage() {
     async function fetchDoctors() {
       const res = await fetch("/api/doctors?limit=100");
       const data = await res.json();
-
       setDoctors(data.items);
     }
 
@@ -93,7 +92,6 @@ export default function NewPatientPage() {
 
     if (!res.ok) {
       const data = await res.json();
-
       setError(data.error || "Что-то пошло не так");
       setLoading(false);
       return;
@@ -103,159 +101,161 @@ export default function NewPatientPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto py-10 px-4">
-      <Link
-        href="/patients"
-        className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition mb-8"
-      >
-        ← Назад к пациентам
-      </Link>
+    <div className="min-h-screen w-full px-4 sm:px-6 py-6 sm:py-10">
+      <div className="max-w-xl mx-auto">
+        <Link
+          href="/patients"
+          className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition mb-6 sm:mb-8"
+        >
+          ← Назад к пациентам
+        </Link>
 
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4">
-          Добавление пациента
-        </h1>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">
+            Добавление пациента
+          </h1>
 
-        <div className="w-full h-0.5 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
-      </div>
+          <div className="w-full h-0.5 rounded-full bg-[linear-gradient(90deg,#0B82C6,#00A482)]" />
+        </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 p-7">
-        {error && (
-          <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-            {error}
-          </div>
-        )}
+        <div className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-7">
+          {error && (
+            <div className="mb-5 sm:mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {error}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Полное имя *
-            </label>
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Полное имя *
+              </label>
 
-            <input
-              type="text"
-              required
-              minLength={3}
-              maxLength={100}
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Иванов Иван"
-              className={input}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Возраст
-            </label>
-
-            <input
-              type="number"
-              required
-              min={1}
-              max={120}
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="0"
-              className={input}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Диагноз *
-            </label>
-
-            <input
-              type="text"
-              required
-              minLength={3}
-              maxLength={200}
-              value={diagnosis}
-              onChange={(e) => setDiagnosis(e.target.value)}
-              placeholder="Введите диагноз"
-              className={input}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Врач *
-            </label>
-
-            <div className="relative">
-              <select
+              <input
+                type="text"
                 required
-                value={doctorId}
-                onChange={(e) => setDoctorId(e.target.value)}
-                className={`${input} appearance-none pr-12 bg-white`}
-              >
-                <option value="">Выбрать врача</option>
-
-                {doctors.map((doctor) => (
-                  <option key={doctor.id} value={doctor.id}>
-                    {doctor.fullName}
-                  </option>
-                ))}
-              </select>
-
-              <img
-                src="/images/arrow.svg"
-                alt=""
-                className="invert pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50"
+                minLength={3}
+                maxLength={100}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Иванов Иван"
+                className={input}
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Заметки
-            </label>
-
-            <textarea
-              rows={2}
-              maxLength={500}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Дополнительная информация"
-              className={`${input} resize-none`}
-            />
-          </div>
-
-          <div className="flex items-center justify-between rounded-2xl border border-slate-200 p-4">
             <div>
-              <p className="font-semibold text-slate-800">
-                Критическое состояние
-              </p>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Возраст
+              </label>
 
-              <p className="text-sm text-slate-500 mt-1">
-                Пациент требует повышенного внимания
-              </p>
+              <input
+                type="number"
+                required
+                min={1}
+                max={120}
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="0"
+                className={input}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Диагноз *
+              </label>
+
+              <input
+                type="text"
+                required
+                minLength={3}
+                maxLength={200}
+                value={diagnosis}
+                onChange={(e) => setDiagnosis(e.target.value)}
+                placeholder="Введите диагноз"
+                className={input}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Врач *
+              </label>
+
+              <div className="relative">
+                <select
+                  required
+                  value={doctorId}
+                  onChange={(e) => setDoctorId(e.target.value)}
+                  className={`${input} appearance-none pr-12 bg-white`}
+                >
+                  <option value="">Выбрать врача</option>
+
+                  {doctors.map((doctor) => (
+                    <option key={doctor.id} value={doctor.id}>
+                      {doctor.fullName}
+                    </option>
+                  ))}
+                </select>
+
+                <img
+                  src="/images/arrow.svg"
+                  alt=""
+                  className="invert pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Заметки
+              </label>
+
+              <textarea
+                rows={2}
+                maxLength={500}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Дополнительная информация"
+                className={`${input} resize-none`}
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-slate-200 p-4">
+              <div>
+                <p className="font-semibold text-slate-800">
+                  Критическое состояние
+                </p>
+
+                <p className="text-sm text-slate-500 mt-1">
+                  Пациент требует повышенного внимания
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsCritical(!isCritical)}
+                className={`relative w-14 h-8 rounded-full transition-all ${
+                  isCritical ? "bg-red-500" : "bg-slate-300"
+                }`}
+              >
+                <div
+                  className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform ${
+                    isCritical ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
             </div>
 
             <button
-              type="button"
-              onClick={() => setIsCritical(!isCritical)}
-              className={`relative w-14 h-8 rounded-full transition-all ${
-                isCritical ? "bg-red-500" : "bg-slate-300"
-              }`}
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-full h-12 text-white font-semibold hover:scale-[1.01] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 disabled:opacity-50 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
             >
-              <div
-                className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform ${
-                  isCritical ? "translate-x-7" : "translate-x-1"
-                }`}
-              />
+              {loading ? "Сохранение..." : "Добавить пациента"}
             </button>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-full h-12 text-white font-semibold hover:scale-[1.01] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95 transition-all duration-200 disabled:opacity-50 bg-[linear-gradient(135deg,#0B82C6,#00A482)]"
-          >
-            {loading ? "Сохранение..." : "Добавить пациента"}
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
