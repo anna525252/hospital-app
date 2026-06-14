@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Header() {
+export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (

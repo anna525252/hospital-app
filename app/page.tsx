@@ -51,7 +51,8 @@ export default function Home() {
               src="/images/placeholder.jpg"
               alt="Медицинский персонал"
               fill
-              sizes="(max-width: 640px) 196px, (max-width: 768px) 252px, 300px"
+              priority
+              sizes="(max-width: 768px) 70vw, 420px"
               className="object-cover"
             />
           </div>
