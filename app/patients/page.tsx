@@ -180,7 +180,6 @@ export default function PatientsPage() {
 
       {data.length === 0 ? (
         <div className="text-center py-20 text-white/30">
-          <p className="text-4xl mb-3">🔍</p>
           <p className="text-sm">Пациенты не найдены</p>
         </div>
       ) : (
