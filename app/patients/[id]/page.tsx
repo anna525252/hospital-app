@@ -42,7 +42,7 @@ export default function PatientPage() {
 
   if (!patient) {
     return (
-      <div className="py-8 text-sm text-slate-400 animate-pulse px-4">
+      <div className="py-8 text-sm text-white px-4">
         Загрузка...
       </div>
     );

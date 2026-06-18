@@ -50,7 +50,7 @@ export default function DoctorPage() {
 
   if (!doctor) {
     return (
-      <div className="py-8 text-sm text-slate-400 animate-pulse">
+      <div className="py-8 text-sm text-white">
         Загрузка...
       </div>
     );

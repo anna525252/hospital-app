@@ -117,7 +117,7 @@ export async function POST(req: Request) {
     }
 
     const newPatient = {
-        id: crypto.randomUUID(),
+        id: `patient-${Date.now()}`,
         fullName: body.fullName,
         age: body.age,
         diagnosis: body.diagnosis,
