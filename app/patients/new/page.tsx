@@ -26,7 +26,7 @@ export default function NewPatientPage() {
     async function fetchDoctors() {
       const res = await fetch("/api/doctors?limit=100");
       const data = await res.json();
-      setDoctors(data.items);
+      setDoctors(data.items.filter((d: Doctor) => d.isAvailable));
     }
 
     fetchDoctors();

@@ -33,7 +33,7 @@ export default function EditPatientPage() {
       ]);
 
       const doctorsData = await doctorsRes.json();
-      setDoctors(doctorsData.items);
+      setDoctors(doctorsData.items.filter((d: Doctor) => d.isAvailable));
 
       if (!patientRes.ok) {
         setError("Пациент не найден");

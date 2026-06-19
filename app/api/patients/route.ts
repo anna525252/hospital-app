@@ -103,9 +103,17 @@ export async function POST(req: Request) {
   }
 
   const doctorExists = doctors.find((d) => d.id === body.doctorId);
+
   if (!doctorExists) {
     return Response.json(
       { error: "Врач с таким id не найден" },
+      { status: 422 },
+    );
+  }
+
+  if (!doctorExists.isAvailable) {
+    return Response.json(
+      { error: "Врач недоступен для записи" },
       { status: 422 },
     );
   }
